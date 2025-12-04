@@ -3,7 +3,7 @@
         <article class="container article">
             <div class="articles">
                 <div class="articles__item">
-                    <a href="{{ route('post.show',['id' => 1]) }}" class="articles__link">
+                    <a href="" class="articles__link">
                         <div class="articles__img">
                             <img src="{{asset('blog/img/banner/anuglar.png')}}" class="articles__img-src">
                         </div>
