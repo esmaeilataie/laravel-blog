@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout page_title="خانه">
     <main>
         <article class="container article">
             <div class="articles">

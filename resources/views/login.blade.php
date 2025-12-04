@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout page_title="ورود">
     <main class="bg--white">
         <div class="container">
             <div class="sign-page">

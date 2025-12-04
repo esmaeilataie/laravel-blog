@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout page_title="پست ها">
     <main>
         <div class="container article">
             <article class="single-page">
