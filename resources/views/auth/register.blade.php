@@ -4,21 +4,19 @@
             <div class="sign-page">
                 <h1 class="sign-page__title">ثبت نام در وب‌سایت</h1>
 
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{$error}}</li>
-                    @endforeach
-                </ul>
-
                 <form class="sign-page__form" method="POST" action="{{ route('register') }}">
                     @csrf
                     <input name="name" value="{{ old('name') }}" type="text" class="text text--right"
                            placeholder="نام و نام خانوادگی">
+                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     <input type="text" name="mobile" value="{{ old('mobile') }}" class="text text--left"
                            placeholder="شماره موبایل">
+                    <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
                     <input type="text" name="email" value="{{ old('email') }}" class="text text--left"
                            placeholder="ایمیل">
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     <input type="password" name="password" class="text text--left" placeholder="رمز عبور">
+                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     <input type="password" name="password_confirmation" class="text text--left"
                            placeholder="تکراررمزعبور">
 
