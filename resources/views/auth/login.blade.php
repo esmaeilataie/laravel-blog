@@ -6,7 +6,7 @@
 
                 <form class="sign-page__form" action="{{ route('login') }}" method="POST">
                     @csrf
-                    <input type="text" name="email" class="text text--left" placeholder="شماره یا ایمیل" value="{{
+                    <input type="text" name="email" class="text text--left" placeholder="ایمیل" value="{{
                     old('email')
                     }}">
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
