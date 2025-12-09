@@ -1,5 +1,5 @@
 @props(['page_title' => ''])
-<!doctype html>
+    <!doctype html>
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +12,7 @@
     <meta name="keywords"
           content="آموزش طراحی سایت,آموزش برنامه نویسی,طراحی وب,ساخت وب سایت,آموزش git,آموزش لاراول,آموزش php,آموزش react,آموزش پی اچ پی,آموزش laravel,آموزش جاوا اسکریپت,آموزش ساخت وب سایت,آموزش mvc,آموزش React Native,وب آموز , وب اموز">
     <link rel="canonical" href="https://webamooz.net"/>
+    <link rel="stylesheet" href="{{ asset('blog/panel/css/style.css') }}">
     <link rel="stylesheet" href="{{asset('blog/css/fonts.css')}}">
     <link rel="stylesheet" href="{{asset('blog/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('blog/css/responsive.css')}}" media="(max-width:991px)">
@@ -38,10 +39,29 @@
                     <div class="c-header__button-search "></div>
                     <div class="c-header__button-nav"></div>
                 </div>
-                <div class="c-button__login-regsiter">
-                    <div><a class="c-button__link c-button--login" href="{{ route('login') }}">ورود</a></div>
-                    <div><a class="c-button__link c-button--register" href="{{ route('register') }}">ثبت نام</a></div>
-                </div>
+                @guest
+                    <div class="c-button__login-regsiter">
+                        <div><a class="c-button__link c-button--login" href="{{ route('login') }}">ورود</a></div>
+                        <div><a class="c-button__link c-button--register" href="{{ route('register') }}">ثبت نام</a>
+                        </div>
+                    </div>
+                @else
+                    <div class="dropdown-select wide" id="dropdown_user" onclick="toggleUserDropDown()" tabindex="0"
+                         style="margin-right: 15px;">
+                        <span class="current">{{ auth()->user()->name }}</span>
+                        <div class="list">
+                            <li class="option selected" data-value="0" data-display-text="">
+                                <a href="{{route('_profile')}}">پروفایل</a>
+                            </li>
+                            <li class="option " data-value="0" data-display-text="" onclick="userLogout()">
+                                خروج
+                            </li>
+                            <form action="{{route('logout')}}" method="POST" id="logout_form">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                @endguest
             </div>
         </div>
     </div>
@@ -126,6 +146,16 @@
 <div class="overlay"></div>
 <script src="{{asset('blog/js/jquery-3.4.1.min.js')}}"></script>
 <script src="{{asset('blog/js/js.js')}}"></script>
+{{--<script src="{{ asset('blog/panel/js/js.js') }}"></script>--}}
+<script>
+    function toggleUserDropDown(){
+        document.getElementById('dropdown_user').classList.toggle('open')
+    }
+
+    function userLogout(){
+        document.getElementById('logout_form').submit()
+    }
+</script>
 
 </body>
 </html>
