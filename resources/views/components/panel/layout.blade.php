@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('blog/panel/css/font.css') }}">
     <link rel="stylesheet" href="{{ asset('blog/panel/css/responsive_991.css') }}" media="(max-width:991px)">
     <link rel="stylesheet" href="{{ asset('blog/panel/css/responsive_768.css') }}" media="(max-width:768px)">
+    <link rel="stylesheet" href="{{ asset('blog/panel/css/all.min.css') }}">
 </head>
 <body>
 <div class="sidebar__nav border-top border-left  ">
@@ -26,12 +27,16 @@
     </div>
 
     <ul>
-        <li class="item-li i-dashboard is-active"><a href="index.html">پیشخوان</a></li>
-        <li class="item-li i-users"><a href="users.html"> کاربران</a></li>
-        <li class="item-li i-categories"><a href="categories.html">دسته بندی ها</a></li>
-        <li class="item-li i-articles"><a href="articles.html">مقالات</a></li>
-        <li class="item-li i-comments"><a href="comments.html"> نظرات</a></li>
-        <li class="item-li i-user__inforamtion"><a href="user-information.html">اطلاعات کاربری</a></li>
+        <li class="is-active">
+            <a href="{{ route('dashboard') }}"><i class="fa-solid fa-chart-line"></i>پیشخوان</a>
+        </li>
+        <li class="">
+            <a href="{{ route('users.index') }}"><i class="fa-solid fa-user"></i> کاربران </a>
+        </li>
+        <li class=""><a href="categories.html"><i class="fa-solid fa-pen-ruler"></i>دسته بندی ها</a></li>
+        <li class=""><a href="articles.html"><i class="fa-solid fa-newspaper"></i>مقالات</a></li>
+        <li class=""><a href="comments.html"><i class="fa-solid fa-comments"></i> نظرات</a></li>
+        <li class=""><a href="user-information.html"><i class="fa-solid fa-list-check"></i>اطلاعات کاربری</a></li>
     </ul>
 
 </div>
@@ -41,8 +46,9 @@
             <span class="bars"></span>
             <a class="header__logo" href="https://webamooz.net"></a>
         </div>
-        <div class="header__left d-flex flex-end item-center margin-top-2">
-            <a href="" class="logout" title="خروج" onclick="event.preventDefault(); document.getElementById
+        <div class="header__left d-flex flex-end item-center margin-top-2" style="cursor: pointer">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <a href=""  title="خروج" onclick="event.preventDefault(); document.getElementById
             ('logout_form').submit();"></a>
             <form action="{{route('logout')}}" method="POST" id="logout_form">
                 @csrf
@@ -54,4 +60,5 @@
 </body>
 <script src="{{ asset('blog/panel/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('blog/panel/js/js.js') }}"></script>
+<script src="{{ asset('blog/panel/js/all.min.js') }}"></script>
 </html>

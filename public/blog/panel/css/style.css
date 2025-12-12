@@ -533,6 +533,11 @@ textarea {
     scrollbar-width: thin;
 }
 
+svg {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
 .sidebar__nav.is-active {
     right: -170px;
     transition: all 200ms ease;
@@ -832,12 +837,12 @@ textarea {
     margin-right: 20px;
 }
 
-.logout:before {
-    content: '\e10b';
-    font-size: 20px;
-    padding-top: 3px;
-    display: inline-block;
-}
+/*.logout:before {*/
+/*    content: '\e10b';*/
+/*    font-size: 20px;*/
+/*    padding-top: 3px;*/
+/*    display: inline-block;*/
+/*}*/
 
 .margin-15 {
     margin: 0 15px;
@@ -856,11 +861,11 @@ textarea {
 
 }
 
-.logout:hover::before {
-    color: #2b4a83;
-    transition: all 200ms ease;
+/*.logout:hover::before {*/
+/*    color: #2b4a83;*/
+/*    transition: all 200ms ease;*/
 
-}
+/*}*/
 
 .bars:hover::before {
     color: #2b4a83;
