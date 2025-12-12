@@ -46,4 +46,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getRoleByPersian()
+    {
+        if($this->role == 'user') return 'کاربر';
+        if($this->role == 'author') return 'نویسنده';
+        if($this->role == 'admin') return 'مدیر';
+    }
 }
