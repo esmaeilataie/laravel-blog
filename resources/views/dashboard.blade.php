@@ -1,17 +1,28 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
+<x-panel.layout page_title="پیشخوان">
+    <div class="breadcrumb">
+        <ul>
+            <li><a href="index.html" title="پیشخوان">پیشخوان</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="row no-gutters font-size-13 margin-bottom-10">
+            <div class="col-3 padding-20 border-radius-3 bg-white margin-left-10 margin-bottom-10">
+                <p> تعداد کاربران </p>
+                <p>20 نفر</p>
+            </div>
+            <div class="col-3 padding-20 border-radius-3 bg-white margin-left-10 margin-bottom-10">
+                <p>تعداد پست ها</p>
+                <p>20 پست</p>
+            </div>
+            <div class="col-3 padding-20 border-radius-3 bg-white margin-left-10 margin-bottom-10">
+                <p>تعداد نظرات</p>
+                <p>300 نظر</p>
+            </div>
+            <div class="col-3 padding-20 border-radius-3 bg-white  margin-bottom-10">
+                <p>تعداد دسته بندی ها</p>
+                <p>300 نظر</p>
             </div>
         </div>
+
     </div>
-</x-app-layout>
+</x-panel.layout>
