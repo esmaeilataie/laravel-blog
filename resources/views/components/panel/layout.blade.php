@@ -27,10 +27,10 @@
     </div>
 
     <ul>
-        <li class="is-active">
+        <li class="{{request()->routeIs('dashboard') ? 'is-active' : ''}}">
             <a href="{{ route('dashboard') }}"><i class="fa-solid fa-chart-line"></i>پیشخوان</a>
         </li>
-        <li class="">
+        <li class="{{request()->routeIs('users.*') ? 'is-active' : ''}}">
             <a href="{{ route('users.index') }}"><i class="fa-solid fa-user"></i> کاربران </a>
         </li>
         <li class=""><a href="categories.html"><i class="fa-solid fa-pen-ruler"></i>دسته بندی ها</a></li>
