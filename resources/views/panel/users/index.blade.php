@@ -38,7 +38,7 @@
                         <td>{{ $user->getCreatedAtInJalai() }}</td>
                         <td>
 
-                            @if(auth()->user()->id != $user->id)
+                            @if(auth()->user()->id != $user->id && $user->role !== 'admin')
                                 <a href="#" class="mlg-15" title="حذف" onclick="deleteUser(event, {{$user->id}})"
                                 ><i class="fa-solid fa-trash-can"></i></a>
                             @endif
