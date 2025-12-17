@@ -62,4 +62,32 @@
 <script src="{{ asset('blog/panel/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('blog/panel/js/js.js') }}"></script>
 <script src="{{ asset('blog/panel/js/all.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(Session::has('status'))
+    <script>
+        {{--Swal.fire({--}}
+        {{--    title: "{{session('status')}}",--}}
+        {{--    confirmButtonText: "تایید",--}}
+        {{--    icon: "success"--}}
+        {{--});--}}
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "bottom-end",
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: "success",
+            title: "{{session('status')}}"
+        });
+
+    </script>
+@endif
+{{ $scripts ?? '' }}
 </html>

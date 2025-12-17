@@ -23,7 +23,7 @@
                            placeholder="شماره موبایل">
                     <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
 
-                    <select name="role" id="">
+                    <select name="role" id="" class="select">
                         <option value="user" selected>کاربر عادی</option>
                         <option value="author">نویسنده</option>
                         <option value="admin">مدیر</option>

@@ -34,6 +34,7 @@ class UserController extends Controller
 
         $validated['password'] = Hash::make('password');
         User::create($validated);
+        $request->session()->flash('status','کاربر به درستی ایجاد شد!');
         return redirect()->route('users.index');
     }
 
@@ -48,13 +49,15 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->validated());
+        $request->session()->flash('status','کاربر مورد نظر با موفقیت ویرایش شد!');
         return redirect()->route('users.index');
     }
 
 
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
         $user->delete();
+        $request->session()->flash('status','کاربر مورد نظر با موفقیت حذف شد!');
         return back();
     }
 }

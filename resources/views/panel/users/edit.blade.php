@@ -26,7 +26,7 @@
                            placeholder="شماره موبایل">
                     <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
 
-                    <select name="role" id="">
+                    <select name="role" id="" class="select">
                         <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>کاربر عادی</option>
                         <option value="author" {{ $user->role == 'author' ? 'selected' : '' }}>نویسنده</option>
                         <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>مدیر</option>

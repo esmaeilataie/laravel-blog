@@ -59,10 +59,26 @@
         </div>
     </div>
 
-    <script>
-        function deleteUser(event, id) {
-            event.preventDefault();
-            document.getElementById(`delete-user-form-${id}`).submit()
-        }
-    </script>
+    <x-slot name="scripts">
+        <script>
+            function deleteUser(event, id) {
+                event.preventDefault();
+
+                Swal.fire({
+                    title: "آیا مطمئن هستید؟",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "بله،حذفش کن!",
+                    cancelButtonText: 'منصرف شدم'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById(`delete-user-form-${id}`).submit()
+                    }
+                });
+
+            }
+        </script>
+    </x-slot>
 </x-panel.layout>
