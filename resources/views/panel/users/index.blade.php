@@ -38,9 +38,18 @@
                         <td>{{ $user->getCreatedAtInJalai() }}</td>
                         <td>
 
-                            <a href="" class="mlg-15" title="حذف"><i class="fa-solid fa-trash-can"></i></a>
+                            @if(auth()->user()->id != $user->id)
+                                <a href="#" class="mlg-15" title="حذف" onclick="deleteUser(event, {{$user->id}})"
+                                ><i class="fa-solid fa-trash-can"></i></a>
+                            @endif
                             <a href="{{ route('users.edit',$user->id) }}" class=" " title="ویرایش"><i class="fa-regular
-                        fa-pen-to-square"></i></a>
+                               fa-pen-to-square"></i></a>
+
+                            <form action="{{ route('users.destroy',$user->id) }}" method="POST"
+                                  id="delete-user-form-{{$user->id}}">
+                                @csrf
+                                @method('DELETE')
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -48,4 +57,11 @@
             </table>
         </div>
     </div>
+
+    <script>
+        function deleteUser(event, id) {
+            event.preventDefault();
+            document.getElementById(`delete-user-form-${id}`).submit()
+        }
+    </script>
 </x-panel.layout>

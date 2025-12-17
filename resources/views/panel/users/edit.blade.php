@@ -10,18 +10,29 @@
         <div class="row no-gutters bg-white margin-bottom-20">
             <div class="col-12">
                 <p class="box__title">ویرایش کاربر</p>
-                <form action="" class="padding-30" method="post">
-                    <input type="text" class="text" placeholder="نام و نام خانوادگی">
-                    <input type="text" class="text" placeholder="ایمیل">
-                    <input type="text" class="text" placeholder="شماره موبایل">
-                    <input type="text" class="text" placeholder="آی پی">
-                    <select name="" id="">
-                        <option value="0">سطح کاربری</option>
-                        <option value="1">کاربر عادی</option>
-                        <option value="2">مدرس</option>
-                        <option value="3">نویسنده</option>
-                        <option value="4">مدیر</option>
+                <form action="{{ route('users.update', $user->id) }}" class="padding-30" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <input type="text" value="{{ old('name') ?? $user->name  }}"  name="name" class="text"
+                           placeholder="نام">
+                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+
+                    <input type="email"value="{{ old('email') ?? $user->email}}"  name="email" class="text"
+                           placeholder="ایمیل">
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+
+                    <input type="text" value="{{ old('mobile') ?? $user->mobile }}" name="mobile" class="text"
+                           placeholder="شماره موبایل">
+                    <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
+
+                    <select name="role" id="">
+                        <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>کاربر عادی</option>
+                        <option value="author" {{ $user->role == 'author' ? 'selected' : '' }}>نویسنده</option>
+                        <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>مدیر</option>
                     </select>
+                    <x-input-error :messages="$errors->get('role')" class="mt-2" />
+
                     <button class="btn btn-webamooz_net">ذخیره</button>
                 </form>
 

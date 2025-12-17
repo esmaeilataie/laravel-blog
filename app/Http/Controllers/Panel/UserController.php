@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('panel.users.index',[
+        return view('panel.users.index', [
             'users' => $users
         ]);
     }
@@ -29,9 +29,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'persian_alpha','max:255'],
-            'email' => ['required', 'email', 'lowercase', 'string', 'unique:'.User::class],
-            'mobile' => ['required','string', 'max:255', 'unique:'.User::class,'ir_mobile'],
+            'name' => ['required', 'string', 'persian_alpha', 'max:255'],
+            'email' => ['required', 'email', 'lowercase', 'string', 'unique:' . User::class],
+            'mobile' => ['required', 'string', 'max:255', 'unique:' . User::class, 'ir_mobile'],
             'role' => ['required', Rule::in(['user', 'author', 'admin'])]
         ]);
 
@@ -40,27 +40,33 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-
-    public function show(string $id)
+    public function edit(User $user)
     {
-        //
+        return view('panel.users.edit', [
+            'user' => $user
+        ]);
     }
 
 
-    public function edit(string $id)
+    public function update(Request $request, User $user)
     {
-        return view('panel.users.edit');
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'persian_alpha', 'max:255'],
+            'email' => ['required', 'email', 'lowercase', 'string',
+                Rule::unique('users', 'email')->ignore($user->id)],
+            'mobile' => ['required', 'string', 'max:255', 'ir_mobile',
+                Rule::unique('users', 'mobile')->ignore($user->id)],
+            'role' => ['required', Rule::in(['user', 'author', 'admin'])]
+        ]);
+
+        $user->update($validated);
+        return redirect()->route('users.index');
     }
 
 
-    public function update(Request $request, string $id)
+    public function destroy(User $user)
     {
-        //
-    }
-
-
-    public function destroy(string $id)
-    {
-        //
+        $user->delete();
+        return back();
     }
 }
