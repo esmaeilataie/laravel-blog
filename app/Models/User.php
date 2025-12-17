@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Morilog\Jalali\Jalalian;
 
 class User extends Authenticatable
 {
@@ -53,5 +54,10 @@ class User extends Authenticatable
         if($this->role == 'user') return 'کاربر';
         if($this->role == 'author') return 'نویسنده';
         if($this->role == 'admin') return 'مدیر';
+    }
+
+    public function getCreatedAtInJalai(): Jalalian
+    {
+        return Jalalian::forge($this->created_at);
     }
 }
