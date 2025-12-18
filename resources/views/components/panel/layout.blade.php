@@ -1,6 +1,6 @@
 @props(['page_title'])
 
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,11 +32,15 @@
             <a href="{{ route('dashboard') }}"><i class="fa-solid fa-chart-line"></i>پیشخوان</a>
         </li>
         @if(auth()->user()->role === 'admin')
-        <li class="{{request()->routeIs('users.*') ? 'is-active' : ''}}">
-            <a href="{{ route('users.index') }}"><i class="fa-solid fa-user"></i> کاربران </a>
-        </li>
+            <li class="{{request()->routeIs('users.*') ? 'is-active' : ''}}">
+                <a href="{{ route('users.index') }}"><i class="fa-solid fa-user"></i> کاربران </a>
+            </li>
+            <li class="{{request()->routeIs('categories.*') ? 'is-active' : ''}}">
+                <a href="{{ route('categories.index') }}">
+                    <i class="fa-solid fa-pen-ruler"></i>دسته بندی ها</a>
+            </li>
         @endif
-        <li class=""><a href="categories.html"><i class="fa-solid fa-pen-ruler"></i>دسته بندی ها</a></li>
+
         <li class=""><a href="articles.html"><i class="fa-solid fa-newspaper"></i>مقالات</a></li>
         <li class=""><a href="comments.html"><i class="fa-solid fa-comments"></i> نظرات</a></li>
         <li class=""><a href="user-information.html"><i class="fa-solid fa-list-check"></i>اطلاعات کاربری</a></li>
@@ -51,7 +55,7 @@
         </div>
         <div class="header__left d-flex flex-end item-center margin-top-2" style="cursor: pointer">
 
-            <a href="#"  title="خروج" onclick="logOut(event)"><i class="fa-solid fa-right-from-bracket"></i></a>
+            <a href="#" title="خروج" onclick="logOut(event)"><i class="fa-solid fa-right-from-bracket"></i></a>
             <form action="{{route('logout')}}" method="POST" id="logout_form">
                 @csrf
             </form>
@@ -91,7 +95,7 @@
     </script>
 @endif
 <script>
-    function logOut(e){
+    function logOut(e) {
         e.preventDefault();
         document.getElementById('logout_form').submit();
     }
