@@ -18,8 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('/panel/users',UserController::class)->except('show');
+Route::resource('/panel/users',UserController::class)->except('show')
+      ->middleware(['auth','can:edit-users']);
 
-Route::get('/_profile',fn() => 'profile')->name('_profile');
+Route::middleware('auth')->get('/_profile',fn() => 'profile')->name('_profile');
 
 require __DIR__.'/auth.php';
