@@ -9,7 +9,7 @@
         <div class="row no-gutters  ">
             <div class="col-8 margin-left-10 margin-bottom-15 border-radius-3">
                 <p class="box__title">دسته بندی ها</p>
-                <div class="table__box">
+                <div class="table__box bg-white">
                     <table class="table">
                         <thead role="rowgroup">
                         <tr role="row" class="title-row">
@@ -21,22 +21,25 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr role="row" class="">
-                            <td><a href="">1</a></td>
-                            <td><a href="">برنامه نویسی</a></td>
-                            <td>programming</td>
-                            <td>ندارد</td>
-                            <td>
-                                <a href="" class="mlg-15" title="حذف">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                                <a href="edit-category.html" class="" title="ویرایش">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </a>
-                            </td>
-                        </tr>
+                        @foreach($categories as $category)
+                            <tr role="row" class="">
+                                <td>{{ $category->id }}</td>
+                                <td>{{ $category->name }}</td>
+                                <td>{{ $category->slug }}</td>
+                                <td>{{ $category->getParentName() }}</td>
+                                <td>
+                                    <a href="" class="mlg-15" title="حذف">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
+                                    <a href="edit-category.html" class="" title="ویرایش">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
+                    {{ $categories->links('vendor.pagination.bootstrap-4') }}
                 </div>
             </div>
             <div class="col-4 bg-white">

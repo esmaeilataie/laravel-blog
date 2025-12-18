@@ -11,10 +11,12 @@ class CategoryController extends Controller
 {
     public function index()
     {
+        $categories = Category::paginate();
         $parentCategories = Category::where('category_id', null)->get();
 
         return view('panel.categories.index',[
-            'parentCategories' => $parentCategories
+            'parentCategories' => $parentCategories,
+            'categories' => $categories
         ]);
     }
 
