@@ -41,13 +41,21 @@
             </div>
             <div class="col-4 bg-white">
                 <p class="box__title">ایجاد دسته بندی جدید</p>
-                <form action="" method="post" class="padding-30">
-                    <input type="text" placeholder="نام دسته بندی" class="text">
-                    <input type="text" placeholder="نام انگلیسی دسته بندی" class="text">
+                <form action="{{ route('categories.store') }}" method="POST" class="padding-30">
+                    @csrf
+                    <input type="text" name="name" value="{{ old('name') }}" placeholder="نام دسته بندی" class="text">
+                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+
+                    <input type="text" name="slug" value="{{ old('slug') }}" placeholder="نام انگلیسی دسته بندی"
+                           class="text">
+                    <x-input-error :messages="$errors->get('slug')" class="mt-2" />
+
                     <p class="box__title margin-bottom-15">انتخاب دسته پدر</p>
-                    <select class="select" name="" id="">
-                        <option value="0">ندارد</option>
-                        <option value="0">برنامه نویسی</option>
+                    <select class="select" name="category_id" id="">
+                        <option value="">ندارد</option>
+                        @foreach($parentCategories as $parentCategory)
+                            <option value="{{ $parentCategory->id }}">{{ $parentCategory->name }}</option>
+                        @endforeach
                     </select>
                     <button class="btn btn-webamooz_net">اضافه کردن</button>
                 </form>
