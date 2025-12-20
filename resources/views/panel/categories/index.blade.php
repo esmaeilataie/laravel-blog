@@ -37,7 +37,7 @@
                                         @csrf
                                         @method('DELETE')
                                     </form>
-                                    <a href="edit-category.html" class="" title="ویرایش">
+                                    <a href="{{ route('categories.edit',$category->id) }}" class="" title="ویرایش">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </a>
                                 </td>
