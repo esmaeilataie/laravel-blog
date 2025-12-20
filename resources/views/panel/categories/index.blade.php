@@ -28,9 +28,15 @@
                                 <td>{{ $category->slug }}</td>
                                 <td>{{ $category->getParentName() }}</td>
                                 <td>
-                                    <a href="" class="mlg-15" title="حذف">
+                                    <a href="{{ route('categories.destroy', $category->id) }}" class="mlg-15"
+                                       title="حذف" onclick="deleteCategory(event,{{$category->id}})">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </a>
+                                    <form action="{{ route('categories.destroy',$category->id) }}" method="POST"
+                                          id="delete-category-form-{{$category->id}}" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
                                     <a href="edit-category.html" class="" title="ویرایش">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </a>
@@ -68,7 +74,7 @@
 
     <x-slot name="scripts">
         <script>
-            function deleteUser(event, id) {
+            function deleteCategory(event, id) {
                 event.preventDefault();
 
                 Swal.fire({
@@ -81,7 +87,7 @@
                     cancelButtonText: 'منصرف شدم'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        document.getElementById(`delete-user-form-${id}`).submit()
+                        document.getElementById(`delete-category-form-${id}`).submit()
                     }
                 });
 
