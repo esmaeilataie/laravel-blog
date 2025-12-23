@@ -20,7 +20,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
     public function show(Post $post)
     {

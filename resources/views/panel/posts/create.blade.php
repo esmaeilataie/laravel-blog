@@ -11,12 +11,12 @@
         <p class="box__title">ایجاد مقاله جدید</p>
         <div class="row no-gutters bg-white">
             <div class="col-12">
-                <form action="" class="padding-30">
-                    <input type="text" class="text" placeholder="عنوان مقاله">
-                    <input type="text" class="text text-left " placeholder="نام انگلیسی مقاله">
+                <form action="{{ route('posts.store') }}" class="padding-30" method="POST"
+                      enctype="multipart/form-data">
+                    @csrf
+                    <input type="text" name="title" class="text" placeholder="عنوان مقاله">
 
                     <ul class="tags">
-
                         <li class="addedTag">dsfsdf<span class="tagRemove" onclick="$(this).parent().remove();">x</span>
                             <input type="hidden" value="dsfsdf" name="tags[]"></li>
                         <li class="addedTag">dsfsdf<span class="tagRemove" onclick="$(this).parent().remove();">x</span>
@@ -29,7 +29,7 @@
                     <div class="file-upload">
                         <div class="i-file-upload">
                             <span>آپلود بنر دوره</span>
-                            <input type="file" class="file-upload" id="files" name="files"/>
+                            <input type="file" class="file-upload" id="files" name="banner"/>
                         </div>
                         <span class="filesize"></span>
                         <span class="selectedFiles">فایلی انتخاب نشده است</span>
