@@ -15,26 +15,33 @@
                       enctype="multipart/form-data">
                     @csrf
                     <input type="text" name="title" class="text" placeholder="عنوان مقاله">
+                    <x-input-error :messages="$errors->get('title')" class="mt-2" />
 
+                    <p>دسته بندی مقاله</p>
                     <ul class="tags">
-                        <li class="addedTag">dsfsdf<span class="tagRemove" onclick="$(this).parent().remove();">x</span>
-                            <input type="hidden" value="dsfsdf" name="categories[]"></li>
-                        <li class="addedTag">dsfsdf<span class="tagRemove" onclick="$(this).parent().remove();">x</span>
-                            <input type="hidden" value="dsfsdf" name="categories[]"></li>
+{{--                        <li class="addedTag">dsfsdf<span class="tagRemove" onclick="$(this).parent().remove();">x</span>--}}
+{{--                            <input type="hidden" value="dsfsdf" name="categories[]"></li>--}}
+{{--                        <li class="addedTag">dsfsdf<span class="tagRemove" onclick="$(this).parent().remove();">x</span>--}}
+{{--                            <input type="hidden" value="dsfsdf" name="categories[]"></li>--}}
                         <li class="tagAdd taglist">
                             <input type="text" id="search-field">
                         </li>
                     </ul>
+                    <x-input-error :messages="$errors->get('categories')" class="mt-2" />
 
                     <div class="file-upload">
                         <div class="i-file-upload">
                             <span>آپلود بنر دوره</span>
-                            <input type="file" class="file-upload" id="files" name="banner"/>
+                            <input type="file" class="file-upload" id="files" name="banner" accept="image/*"/>
                         </div>
                         <span class="filesize"></span>
                         <span class="selectedFiles">فایلی انتخاب نشده است</span>
                     </div>
-                    <textarea placeholder="متن مقاله" class="text "></textarea>
+                    <x-input-error :messages="$errors->get('banner')" class="mt-2" />
+
+                    <textarea placeholder="متن مقاله" class="text" name="content"></textarea>
+                    <x-input-error :messages="$errors->get('content')" class="mt-2" />
+
                     <button class="btn btn-webamooz_net">ایجاد مقاله</button>
                 </form>
             </div>
