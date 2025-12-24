@@ -49,6 +49,14 @@
     </div>
 
     <x-slot name="scripts">
+        <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+        <script>
+            CKEDITOR.replace( 'content' ,{
+                language : 'fa',
+                filebrowserUploadUrl : '{{ route("editor-upload", ["_token" => csrf_token()]) }}',
+                filebrowserUploadMethod : 'form',
+            });
+        </script>
         <script src="{{ asset('blog/panel/js/tagsInput.js') }}"></script>
     </x-slot>
 </x-panel.layout>

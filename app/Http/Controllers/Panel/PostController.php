@@ -21,11 +21,13 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'title' => ['required','string'],
             'categories' => ['required' , 'array'],
             'categories.*' => ['required', 'string'],
-            'banner' => ['required', 'image']
+            'banner' => ['required', 'image'],
+            'content' => ['required']
         ]);
         $categoryIds = Category::whereIn('name', $request->categories)
                                  ->get()->pluck('id')->toArray();

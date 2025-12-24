@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Panel\CategoryController;
+use App\Http\Controllers\Panel\EditorUploadController;
 use App\Http\Controllers\Panel\PostController;
 use App\Http\Controllers\Panel\UserController;
 use App\Http\Controllers\ProfileController;
@@ -25,6 +26,8 @@ Route::middleware(['auth','can:edit'])->prefix('/panel')->group(function(){
     Route::resource('/categories',CategoryController::class)->except(['show','create']);
     Route::resource('/posts',PostController::class);
 });
+
+Route::post('/editor/upload',[EditorUploadController::class,'upload'])->name('editor-upload');
 
 Route::middleware('auth')->get('/_profile',fn() => 'profile')->name('_profile');
 
