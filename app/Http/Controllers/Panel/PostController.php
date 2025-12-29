@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Panel\Posts\CreatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
 {
@@ -19,23 +21,31 @@ class PostController extends Controller
         return view('panel.posts.create');
     }
 
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
-        dd($request->all());
-        $request->validate([
-            'title' => ['required','string'],
-            'categories' => ['required' , 'array'],
-            'categories.*' => ['required', 'string'],
-            'banner' => ['required', 'image'],
-            'content' => ['required']
-        ]);
         $categoryIds = Category::whereIn('name', $request->categories)
-                                 ->get()->pluck('id')->toArray();
+            ->get()->pluck('id')->toArray();
+        if (count($categoryIds) < 1)
+        {
+            throw ValidationException::withMessages([
+                'categories' => ['دسته بندی یافت نشد']
+            ]);
+        }
+
         $file = $request->file('banner');
         $file_name = $file->getClientOriginalName();
-        $file->storeAs('images/banners',$file_name, 'public_files');
-        return back();
+        $file->storeAs('images/banners', $file_name, 'public_files');
+
+        $data = $request->validated();
+        $data['banner'] = $file_name;
+        $data['user_id'] = auth()->user()->id;
+
+        $post = Post::create($data);
+        $post->categories()->sync($categoryIds);
+
+        return redirect()->route('posts.index');
     }
+
     public function show(Post $post)
     {
         //
