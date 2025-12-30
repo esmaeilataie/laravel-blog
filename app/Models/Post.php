@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Morilog\Jalali\Jalalian;
 
 class Post extends Model
 {
@@ -30,5 +32,15 @@ class Post extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getCreatedAtInJalai(): Jalalian
+    {
+        return Jalalian::forge($this->created_at);
     }
 }

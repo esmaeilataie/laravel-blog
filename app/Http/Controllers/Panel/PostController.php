@@ -13,7 +13,14 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('panel.posts.index');
+        if (auth()->user()->role !== 'admin') {
+            $posts = Post::where('user_id', auth()->user()->id)->with('user')->paginate();
+        } else {
+            $posts = Post::with('user')->paginate();
+        }
+        return view('panel.posts.index', [
+            'posts' => $posts
+        ]);
     }
 
     public function create()
@@ -25,8 +32,7 @@ class PostController extends Controller
     {
         $categoryIds = Category::whereIn('name', $request->categories)
             ->get()->pluck('id')->toArray();
-        if (count($categoryIds) < 1)
-        {
+        if (count($categoryIds) < 1) {
             throw ValidationException::withMessages([
                 'categories' => ['دسته بندی یافت نشد']
             ]);
@@ -43,6 +49,7 @@ class PostController extends Controller
         $post = Post::create($data);
         $post->categories()->sync($categoryIds);
 
+        session()->flash('status','مقاله ساخته شد!');
         return redirect()->route('posts.index');
     }
 

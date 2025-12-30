@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="table__box">
+        <div class="table__box bg-white">
             <table class="table">
 
                 <thead role="rowgroup">
@@ -36,32 +36,33 @@
                     <th>شناسه</th>
                     <th>عنوان</th>
                     <th>نویسنده</th>
-                    <th>متن</th>
                     <th>تاریخ ایجاد</th>
                     <th>عملیات</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr role="row" class="">
-                    <td><a href="">1</a></td>
-                    <td><a href="">فریم ورک لاراول چیست</a></td>
-                    <td>توفیق حمزئی</td>
-                    <td>فریم ورک لاراول یکی از فریم ورک های محبوب ...</td>
-                    <td>1399/11/11</td>
-                    <td>
-                        <a href="" class="mlg-15" title="حذف">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </a>
-                        <a href="" target="_blank" class="mlg-15" title="مشاهده">
-                            <i class="fa-solid fa-eye"></i>
-                        </a>
-                        <a href="{{ route('posts.edit', 1) }}" class="" title="ویرایش">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </a>
-                    </td>
-                </tr>
+                @foreach($posts as $post)
+                    <tr role="row" class="">
+                        <td>{{ $post->id }}</td>
+                        <td>{{ $post->title }}</td>
+                        <td>{{ $post->user->name }}</td>
+                        <td>{{ $post->getCreatedAtInJalai() }}</td>
+                        <td>
+                            <a href="" class="mlg-15" title="حذف">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                            <a href="" target="_blank" class="mlg-15" title="مشاهده">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                            <a href="{{ route('posts.edit', $post->id) }}" class="" title="ویرایش">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
+            {{ $posts->links('vendor.pagination.bootstrap-4') }}
         </div>
     </div>
 
