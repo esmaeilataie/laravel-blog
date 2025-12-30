@@ -7,6 +7,7 @@ use App\Http\Requests\Panel\Posts\CreatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
@@ -70,6 +71,11 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        //
+        Gate::authorize('delete',$post);
+
+        $post->delete();
+        session()->flash('status','مقاله خذف شد!');
+
+        return back();
     }
 }

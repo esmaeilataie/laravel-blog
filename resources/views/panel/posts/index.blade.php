@@ -48,7 +48,8 @@
                         <td>{{ $post->user->name }}</td>
                         <td>{{ $post->getCreatedAtInJalai() }}</td>
                         <td>
-                            <a href="" class="mlg-15" title="حذف">
+                            <a href="{{route('posts.destroy', $post->id)}}" class="mlg-15" title="حذف"
+                               onclick="deletePost(event,{{$post->id}})">
                                 <i class="fa-solid fa-trash-can"></i>
                             </a>
                             <a href="" target="_blank" class="mlg-15" title="مشاهده">
@@ -57,6 +58,11 @@
                             <a href="{{ route('posts.edit', $post->id) }}" class="" title="ویرایش">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
+                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
+                                  id="delete-post-form-{{$post->id}}">
+                                @csrf
+                                @method('DELETE')
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -68,7 +74,7 @@
 
     <x-slot name="scripts">
         <script>
-            function deleteCategory(event, id) {
+            function deletePost(event, id) {
                 event.preventDefault();
 
                 Swal.fire({
@@ -81,7 +87,7 @@
                     cancelButtonText: 'منصرف شدم'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        document.getElementById(`delete-category-form-${id}`).submit()
+                        document.getElementById(`delete-post-form-${id}`).submit()
                     }
                 });
 
