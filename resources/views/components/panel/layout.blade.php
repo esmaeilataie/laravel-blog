@@ -42,12 +42,16 @@
         @endif
 
         @if(auth()->user()->role === 'admin' || auth()->user()->role === 'author')
-        <li class="{{request()->routeIs('posts.*') ? 'is-active' : ''}}">
-            <a href="{{ route('posts.index') }}">
-                <i class="fa-solid fa-newspaper"></i>مقالات</a>
-        </li>
+            <li class="{{request()->routeIs('posts.*') ? 'is-active' : ''}}">
+                <a href="{{ route('posts.index') }}">
+                    <i class="fa-solid fa-newspaper"></i>مقالات</a>
+            </li>
         @endif
-        <li class=""><a href="comments.html"><i class="fa-solid fa-comments"></i> نظرات</a></li>
+        @if(auth()->user()->role === 'admin')
+            <li class="{{request()->routeIs('comments.*') ? 'is-active' : ''}}">
+                <a href="{{ route('comments.index') }}"><i class="fa-solid fa-comments"></i> نظرات</a>
+            </li>
+        @endif
         <li class=""><a href="user-information.html"><i class="fa-solid fa-list-check"></i>اطلاعات کاربری</a></li>
     </ul>
 
