@@ -9,9 +9,11 @@
     <div class="main-content">
         <div class="tab__box">
             <div class="tab__items">
-                <a class="tab__item is-active" href="comments.html"> همه نظرات</a>
-                <a class="tab__item " href="comments.html">نظرات تاییده نشده</a>
-                <a class="tab__item " href="comments.html">نظرات تاییده شده</a>
+                <a class="tab__item is-active" href="{{ route('comments.index') }}"> همه نظرات</a>
+                <a class="tab__item" href="{{ route('comments.index', ['approved' =>
+                0]) }}">نظرات تاییده
+                    نشده</a>
+                <a class="tab__item " href="{{ route('comments.index', ['approved' => 1]) }}">نظرات تاییده شده</a>
             </div>
         </div>
 
@@ -43,21 +45,38 @@
                             {{ $comment->getApprovedStatusInParsi() }}
                         </td>
                         <td>
-                            <a href="" class="" title="حذف">
+                            <a href="{{route('comments.destroy', $comment->id)}}" class="" title="حذف"
+                               onclick="deleteComment(event,{{$comment->id}})">
                                 <i class="fa-solid fa-trash-can"></i>
-                            </a>
-                            <a href="show-comment.html" class="" title="رد">
-                                <i class="fa-solid fa-remove"></i>
                             </a>
                             <a href="show-comment.html" target="_blank" class="" title="مشاهده">
                                 <i class="fa-solid fa-eye"></i>
                             </a>
-                            <a href="show-comment.html" class="" title="تایید">
-                                <i class="fa-solid fa-check"></i>
-                            </a>
+                            @if($comment->is_approved)
+                                <a href="{{route('comments.update', $comment->id)}}" class="" title="رد"
+                                   onclick="updateComment(event,{{$comment->id}})">
+                                    <i class="fa-solid fa-remove"></i>
+                                </a>
+                            @else
+                                <a href="{{route('comments.update', $comment->id)}}" class="" title="تایید"
+                                   onclick="updateComment(event,{{$comment->id}})">
+                                    <i class="fa-solid fa-check"></i>
+                                </a>
+                            @endif
                             <a href="edit-comment.html" class="" title="ویرایش">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
+                            <form action="{{ route('comments.update', $comment->id) }}" method="POST"
+                                  id="update-comment-form-{{$comment->id}}">
+                                @csrf
+                                @method('PUT')
+                            </form>
+
+                            <form action="{{ route('comments.destroy', $comment->id) }}" method="POST"
+                                  id="delete-comment-form-{{$comment->id}}">
+                                @csrf
+                                @method('DELETE')
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -69,7 +88,7 @@
 
     <x-slot name="scripts">
         <script>
-            function deletePost(event, id) {
+            function deleteComment(event, id) {
                 event.preventDefault();
 
                 Swal.fire({
@@ -82,10 +101,16 @@
                     cancelButtonText: 'منصرف شدم'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        document.getElementById(`delete-post-form-${id}`).submit()
+                        document.getElementById(`delete-comment-form-${id}`).submit()
                     }
                 });
 
+            }
+
+            function updateComment(event, id) {
+                event.preventDefault();
+
+                document.getElementById(`update-comment-form-${id}`).submit()
             }
         </script>
     </x-slot>

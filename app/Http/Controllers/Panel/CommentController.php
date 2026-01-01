@@ -9,17 +9,35 @@ use Illuminate\Http\Request;
 class CommentController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $comments = Comment::with(['user','post'])->withCount('replies')->paginate();
-        return view('panel.comments.index',[
+        if (isset($request->approved)) {
+            $comments = Comment::where('is_approved', !!$request->approved)
+                ->with(['user', 'post'])->withCount('replies')
+                ->paginate();
+        } else {
+
+            $comments = Comment::with(['user', 'post'])->withCount('replies')->paginate();
+        }
+        return view('panel.comments.index', [
             'comments' => $comments
         ]);
     }
 
+    public function update(Comment $comment)
+    {
+        $comment->update([
+            'is_approved' => !$comment->is_approved
+        ]);
+
+        session()->flash('status', 'کامنت ویرایش شد!');
+        return back();
+    }
 
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+        session()->flash('status', 'کامنت حذف شد!');
+        return back();
     }
 }
