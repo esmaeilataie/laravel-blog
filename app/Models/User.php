@@ -23,7 +23,8 @@ class User extends Authenticatable
         'mobile',
         'email',
         'password',
-        'role'
+        'role',
+        'profile'
     ];
 
     /**
@@ -59,5 +60,10 @@ class User extends Authenticatable
     public function getCreatedAtInJalai(): Jalalian
     {
         return Jalalian::forge($this->created_at);
+    }
+
+    public function getProfileAvatarUrl()
+    {
+        return asset('images/users/' . $this->profile);
     }
 }

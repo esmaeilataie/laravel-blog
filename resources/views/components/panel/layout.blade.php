@@ -18,7 +18,7 @@
     <span class="bars d-none padding-0-18"></span>
     <a class="header__logo  d-none" href="https://webamooz.net"></a>
     <div class="profile__info border cursor-pointer text-center" style="margin-bottom: 80px">
-        <div class="avatar__img"><img src="{{ asset('blog/panel/img/pro.jpg') }}" class="avatar___img">
+        <div class="avatar__img"><img src="{{ auth()->user()->getProfileAvatarUrl() }}" class="avatar___img">
             <input type="file" accept="image/*" class="hidden avatar-img__input">
             <div class="v-dialog__container" style="display: block;"></div>
             <div class="box__camera default__avatar"></div>
@@ -52,7 +52,11 @@
                 <a href="{{ route('comments.index') }}"><i class="fa-solid fa-comments"></i> نظرات</a>
             </li>
         @endif
-        <li class=""><a href="user-information.html"><i class="fa-solid fa-list-check"></i>اطلاعات کاربری</a></li>
+        @auth()
+            <li class="{{request()->routeIs('_profile.*') ? 'is-active' : ''}}">
+                <a href="{{ route('_profile.edit') }}"><i class="fa-solid fa-list-check"></i>اطلاعات کاربری</a>
+            </li>
+        @endauth
     </ul>
 
 </div>

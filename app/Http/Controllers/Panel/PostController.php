@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
@@ -45,6 +46,7 @@ class PostController extends Controller
 
     public function store(CreatePostRequest $request)
     {
+        
         $categoryIds = Category::whereIn('name', $request->categories)
             ->get()->pluck('id')->toArray();
         if (count($categoryIds) < 1) {

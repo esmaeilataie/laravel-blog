@@ -6,7 +6,6 @@
             <li><a href="" class="is-active">ساخت مقاله</a></li>
         </ul>
     </div>
-
     <div class="main-content padding-0">
         <p class="box__title">ایجاد مقاله جدید</p>
         <div class="row no-gutters bg-white">

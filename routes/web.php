@@ -6,6 +6,7 @@ use App\Http\Controllers\Panel\EditorUploadController;
 use App\Http\Controllers\Panel\PostController;
 use App\Http\Controllers\Panel\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Panel\ProfileController as MyProfileController;
 use App\Http\Middleware\IsAdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,7 @@ Route::middleware(['auth','can:edit'])->prefix('/panel')->group(function(){
 
 Route::post('/editor/upload',[EditorUploadController::class,'upload'])->name('editor-upload');
 
-Route::middleware('auth')->get('/_profile',fn() => 'profile')->name('_profile');
+Route::middleware('auth')->get('/_profile',[MyProfileController::class,'edit'])->name('_profile.edit');
+Route::middleware('auth')->put('/_profile',[MyProfileController::class,'update'])->name('_profile.update');
 
 require __DIR__.'/auth.php';
