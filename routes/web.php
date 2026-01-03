@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Panel\CategoryController;
 use App\Http\Controllers\Panel\CommentController;
+use App\Http\Controllers\Panel\DashboardController;
 use App\Http\Controllers\Panel\EditorUploadController;
 use App\Http\Controllers\Panel\PostController;
 use App\Http\Controllers\Panel\UserController;
@@ -14,9 +15,7 @@ Route::get('/', function () {
     return view('landing');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('panel.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
