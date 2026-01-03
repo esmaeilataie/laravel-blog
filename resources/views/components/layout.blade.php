@@ -51,7 +51,7 @@
                         <span class="current">{{ auth()->user()->name }}</span>
                         <div class="list">
                             <li class="option selected" data-value="0" data-display-text="">
-                                <a href="{{route('_profile')}}">پروفایل</a>
+                                <a href="{{route('_profile.edit')}}">پروفایل</a>
                             </li>
                             <li class="option " data-value="0" data-display-text="" onclick="userLogout()">
                                 خروج
@@ -73,36 +73,17 @@
         <div class="container container--nav">
             <ul class="nav__ul">
                 <li class="nav__item"><a href="#" class="nav__link">صفحه اصلی</a></li>
-                <li class="nav__item nav__item--has-sub"><a href="#" class="nav__link">برنامه نویسی</a>
-                    <div class="nav__sub">
-                        <div class="container d-flex item-center flex-wrap container--nav">
-                            <a href="" class="nav__link">لینک یک </a>
-                            <a href="" class="nav__link">php</a>
-                            <a href="" class="nav__link">لینک سه</a>
-                            <a href="" class="nav__link">php</a>
+                @foreach($categories as $category)
+                    <li class="nav__item nav__item--has-sub"><a href="#" class="nav__link">{{ $category->name }}</a>
+                        <div class="nav__sub">
+                            <div class="container d-flex item-center flex-wrap container--nav">
+                                @foreach($category->children as $childCategory)
+                                    <a href="" class="nav__link">{{ $childCategory->name }}</a>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li class="nav__item nav__item--has-sub"><a href="#" class="nav__link">هک و امنیت</a>
-                    <div class="nav__sub">
-                        <div class="container d-flex item-center flex-wrap container--nav">
-                            <a href="" class="nav__link">لینک یک </a>
-                            <a href="" class="nav__link">c++</a>
-                            <a href="" class="nav__link">لینک سه</a>
-                            <!--                            <a href="" class="nav__sub-link">php</a>-->
-                        </div>
-                    </div>
-                </li>
-                <li class="nav__item nav__item--has-sub"><a href="#" class="nav__link">هک و امنیت</a>
-                    <div class="nav__sub">
-                        <div class="container d-flex item-center flex-wrap container--nav">
-                            <a href="" class="nav__link">لینک یک </a>
-                            <a href="" class="nav__link">c++</a>
-                            <a href="" class="nav__link">لینک سه</a>
-                            <!--                            <a href="" class="nav__sub-link">php</a>-->
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                @endforeach
                 <li class="nav__item"><a href="#" class="nav__link">درباره ما</a></li>
                 <li class="nav__item"><a href="#" class="nav__link">تماس باما</a></li>
             </ul>
@@ -148,11 +129,11 @@
 <script src="{{asset('blog/js/js.js')}}"></script>
 {{--<script src="{{ asset('blog/panel/js/js.js') }}"></script>--}}
 <script>
-    function toggleUserDropDown(){
+    function toggleUserDropDown() {
         document.getElementById('dropdown_user').classList.toggle('open')
     }
 
-    function userLogout(){
+    function userLogout() {
         document.getElementById('logout_form').submit()
     }
 </script>

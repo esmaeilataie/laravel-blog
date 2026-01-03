@@ -43,4 +43,9 @@ class Post extends Model
     {
         return Jalalian::forge($this->created_at);
     }
+
+    public function getPostBannerUrl()
+    {
+        return asset('images/banners/' . $this->banner);
+    }
 }
