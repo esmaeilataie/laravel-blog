@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\LikePostController;
 use App\Http\Controllers\Panel\CategoryController;
 use App\Http\Controllers\Panel\CommentController;
 use App\Http\Controllers\Panel\DashboardController;
@@ -18,7 +19,8 @@ Route::get('/', [LandingController::class,'index'])->name('home');
 
 Route::get('/dashboard', [DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/post/{post:slug}',[ShowPostController::class,'show'])->name('post.show');
-Route::post('/comment',[StoreCommentController::class,'store'])->name('comment.store');
+Route::middleware(['auth'])->post('/comment',[StoreCommentController::class,'store'])->name('comment.store');
+Route::middleware(['auth'])->post('/like/{post:slug}', [LikePostController::class,'store'])->name('like.post');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -42,5 +44,7 @@ Route::post('/editor/upload',[EditorUploadController::class,'upload'])->name('ed
 
 Route::middleware('auth')->get('/_profile',[MyProfileController::class,'edit'])->name('_profile.edit');
 Route::middleware('auth')->put('/_profile',[MyProfileController::class,'update'])->name('_profile.update');
+
+
 
 require __DIR__.'/auth.php';

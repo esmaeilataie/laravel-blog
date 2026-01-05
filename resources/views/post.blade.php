@@ -15,7 +15,11 @@
                 </div>
                 <div class="single-page__title">
                     <h1 class="single-page__h1">{{ $post->title }}</h1>
-                    <span class="single-page__like"></span>
+                    @auth
+                        <span class="single-page__like @if($post->if_user_liked) single-page__like--is-active
+                    @endauth
+                    @endif"></span>
+
                 </div>
                 <div class="single-page__details">
                     <div class="single-page__author">نویسنده : {{$post->user->name}}</div>
@@ -52,7 +56,7 @@
                             <input type="hidden" name="post_id" value="{{ $post->id }}">
                             <input type="hidden" name="comment_id" value="" id="reply-input">
                             <textarea class="comments__textarea" name="content" placeholder="بنویسید"></textarea>
-                            <x-input-error :messages="$errors->get('content')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('content')" class="mt-2"/>
                             <button class="btn btn--blue btn--shadow-blue">ارسال نظر</button>
                         </form>
                     </div>
@@ -71,9 +75,21 @@
 
     <x-slot name="scripts">
         <script>
-            function setReplyValue(id){
+            function setReplyValue(id) {
                 document.getElementById('reply-input').value = id
             }
+
+            $(".single-page__like").on("click", function () {
+                fetch('{{route("like.post",$post->slug)}}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-Token': '{{ csrf_token() }}'
+                    }
+                }).then(() => {
+                    $(this).toggleClass("single-page__like--is-active");
+                })
+            })
+
         </script>
     </x-slot>
 

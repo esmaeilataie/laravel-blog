@@ -50,8 +50,18 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function likes(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'likes');
+    }
+
     public function getPostBannerUrl()
     {
         return asset('images/banners/' . $this->banner);
+    }
+
+    public function getIfUserLikedAttribute()
+    {
+        return $this->likes()->where('user_id', auth()->user()->id)->exists();
     }
 }
