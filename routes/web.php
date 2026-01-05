@@ -10,6 +10,7 @@ use App\Http\Controllers\Panel\PostController;
 use App\Http\Controllers\Panel\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Panel\ProfileController as MyProfileController;
+use App\Http\Controllers\SearchPostController;
 use App\Http\Controllers\ShowPostCategory;
 use App\Http\Controllers\ShowPostController;
 use App\Http\Controllers\StoreCommentController;
@@ -23,6 +24,7 @@ Route::get('/post/{post:slug}',[ShowPostController::class,'show'])->name('post.s
 Route::middleware(['auth'])->post('/comment',[StoreCommentController::class,'store'])->name('comment.store');
 Route::middleware(['auth'])->post('/like/{post:slug}', [LikePostController::class,'store'])->name('like.post');
 Route::get('/category/{category:slug}',[ShowPostCategory::class, 'show'])->name('category.show');
+Route::get('/search',[SearchPostController::class, 'show'])->name('post.search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

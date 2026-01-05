@@ -32,7 +32,7 @@
             </div>
         </article>
         <div class="pagination">
-            {{ $posts->links('vendor.pagination.bootstrap-4') }}
+            {{ $posts->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
         </div>
     </main>
 </x-layout>
