@@ -82,7 +82,7 @@
                 @endforeach
                 </tbody>
             </table>
-            {{ $comments->links('vendor.pagination.bootstrap-4') }}
+            {{ $comments->appends(request()->query())->links('vendor.pagination.bootstrap-4') }}
         </div>
     </div>
 

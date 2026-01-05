@@ -138,5 +138,7 @@
     }
 </script>
 
+{{ $scripts ?? '' }}
+
 </body>
 </html>

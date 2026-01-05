@@ -10,6 +10,7 @@ use Morilog\Jalali\Jalalian;
 class Comment extends Model
 {
     protected $guarded = [];
+    protected $with = ['approvedReplies'];
 
     public function user():BelongsTo
     {
@@ -21,15 +22,19 @@ class Comment extends Model
         return $this->belongsTo(Post::class);
     }
 
-    public function getCreatedAtInJalai(): Jalalian
-    {
-        return Jalalian::forge($this->created_at);
-    }
-
-
     public function replies(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function approvedReplies()
+    {
+        return $this->replies()->where('is_approved', true);
+    }
+
+    public function getCreatedAtInJalai(): Jalalian
+    {
+        return Jalalian::forge($this->created_at);
     }
 
     public function getApprovedStatusInParsi(): string

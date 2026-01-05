@@ -41,220 +41,40 @@
         </div>
         <div class="container">
             <div class="comments" id="comments">
-                <div class="comments__send">
-                    <div class="comments__title">
-                        <h3 class="comments__h3"> دیدگاه خود را بنویسید </h3>
-                        <span class="comments__count">  نظرات ( 160 ) </span>
+                @auth
+                    <div class="comments__send">
+                        <div class="comments__title">
+                            <h3 class="comments__h3"> دیدگاه خود را بنویسید </h3>
+                            <span class="comments__count">  نظرات ( {{$post->comments_count}} ) </span>
+                        </div>
+                        <form action="{{ route('comment.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+                            <input type="hidden" name="comment_id" value="" id="reply-input">
+                            <textarea class="comments__textarea" name="content" placeholder="بنویسید"></textarea>
+                            <x-input-error :messages="$errors->get('content')" class="mt-2" />
+                            <button class="btn btn--blue btn--shadow-blue">ارسال نظر</button>
+                        </form>
                     </div>
-                    <textarea class="comments__textarea" placeholder="بنویسید"></textarea>
-                    <button class="btn btn--blue btn--shadow-blue">ارسال نظر</button>
-                    <button class="btn btn--red btn--shadow-red">انصراف</button>
-                </div>
+                @else
+                    <p style="display: inline-block; margin-left: 15px;">برای نظر دادن باید وارد سایت شوید</p>
+                    <a href="{{ route('login') }}" class="btn btn--blue btn--shadow-blue">ورود</a>
+                @endauth
                 <div class="comments__list">
-                    <div id="comment-1">
-                        <div class="comments__box">
-                            <div class="comments__inner">
-                                <div class="comments__header">
-                                    <div class="comments__row">
-                                        <div class="d-flex flex-grow-1">
-                                            <div class="comments__avatar">
-                                                <img src="img/profile.jpg" class="comments__img">
-                                            </div>
-                                            <div class="comments__details">
-                                                <h5 class="comments__author"><span class="comments__author-name">محمد نیکو نیکو نیکو</span>
-                                                </h5>
-                                                <span class="comments_date"> 523 روز پیش </span>
-                                            </div>
-                                        </div>
-                                        <a href="#comments" class="btn btn--blue btn--shadow-blue btn--comments-reply">ارسال
-                                            پاسخ</a>
-                                    </div>
-                                </div>
-                                <p class="comments__body">
-                                    لورم ایپسوم
-                                    متـــــــــــــــــــــــــــــــــــــــــــــــــــن
-                                    ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                    گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-                                    که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع
-                                    با هدف بهبود ابزارهای کاربردی می باشد.
-
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="comment-2">
-                        <div class="comments__box">
-                            <div class="comments__inner">
-                                <div class="comments__header">
-                                    <div class="comments__row">
-                                        <div class="d-flex flex-grow-1">
-                                            <div class="comments__avatar">
-                                                <img src="img/profile.jpg" class="comments__img">
-                                            </div>
-                                            <div class="comments__details">
-                                                <h5 class="comments__author"><span class="comments__author-name">محمد نیکو نیکو نیکو</span>
-                                                </h5>
-                                                <span class="comments_date"> 523 روز پیش </span>
-                                            </div>
-                                        </div>
-                                        <a href="#comments" class="btn btn--blue btn--shadow-blue btn--comments-reply">ارسال
-                                            پاسخ</a>
-                                    </div>
-                                </div>
-                                <p class="comments__body">
-                                    لورم ایپسوم
-                                    متـــــــــــــــــــــــــــــــــــــــــــــــــــن
-                                    ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                    گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-                                    که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع
-                                    با هدف بهبود ابزارهای کاربردی می باشد.
-
-                                </p>
-                            </div>
-                            <div class="comments__subset">
-                                <div id="comment-3">
-                                    <div class="comments__box">
-                                        <div class="comments__inner">
-                                            <div class="comments__header">
-                                                <div class="comments__row">
-                                                    <div class="d-flex flex-grow-1">
-                                                        <div class="comments__avatar">
-                                                            <img src="img/profile.jpg" class="comments__img">
-                                                        </div>
-                                                        <div class="comments__details">
-                                                            <h5 class="comments__author"><span
-                                                                    class="comments__author-name">محمد نیکو نیکو نیکو</span>
-                                                            </h5>
-                                                            <span class="comments_date"> 523 روز پیش </span>
-                                                        </div>
-                                                    </div>
-                                                    <a href="#comments"
-                                                       class="btn btn--blue btn--shadow-blue btn--comments-reply">ارسال
-                                                        پاسخ</a>
-                                                </div>
-                                            </div>
-                                            <p class="comments__body">
-                                                لورم ایپسوم
-                                                متـــــــــــــــــــــــــــــــــــــــــــــــــــن
-                                                ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                                گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-                                                که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع
-                                                با هدف بهبود ابزارهای کاربردی می باشد.
-
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="comment-4">
-                        <div class="comments__box">
-                            <div class="comments__inner">
-                                <div class="comments__header">
-                                    <div class="comments__row">
-                                        <div class="d-flex flex-grow-1">
-                                            <div class="comments__avatar">
-                                                <img src="img/profile.jpg" class="comments__img">
-                                            </div>
-                                            <div class="comments__details">
-                                                <h5 class="comments__author"><span class="comments__author-name">محمد نیکو نیکو نیکو</span>
-                                                </h5>
-                                                <span class="comments_date"> 523 روز پیش </span>
-                                            </div>
-                                        </div>
-                                        <a href="#comments" class="btn btn--blue btn--shadow-blue btn--comments-reply">ارسال
-                                            پاسخ</a>
-                                    </div>
-                                </div>
-                                <p class="comments__body">
-                                    لورم ایپسوم
-                                    متـــــــــــــــــــــــــــــــــــــــــــــــــــن
-                                    ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                    گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-                                    که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع
-                                    با هدف بهبود ابزارهای کاربردی می باشد.
-
-                                </p>
-                            </div>
-                            <div class="comments__subset">
-                                <div id="comment-5">
-                                    <div class="comments__box">
-                                        <div class="comments__inner">
-                                            <div class="comments__header">
-                                                <div class="comments__row">
-                                                    <div class="d-flex flex-grow-1">
-                                                        <div class="comments__avatar">
-                                                            <img src="img/profile.jpg" class="comments__img">
-                                                        </div>
-                                                        <div class="comments__details">
-                                                            <h5 class="comments__author"><span
-                                                                    class="comments__author-name">محمد نیکو نیکو نیکو</span>
-                                                            </h5>
-                                                            <span class="comments_date"> 523 روز پیش </span>
-                                                        </div>
-                                                    </div>
-                                                    <a href="#comments"
-                                                       class="btn btn--blue btn--shadow-blue btn--comments-reply">ارسال
-                                                        پاسخ</a>
-                                                </div>
-                                            </div>
-                                            <p class="comments__body">
-                                                لورم ایپسوم
-                                                متـــــــــــــــــــــــــــــــــــــــــــــــــــن
-                                                ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                                گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-                                                که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع
-                                                با هدف بهبود ابزارهای کاربردی می باشد.
-
-                                            </p>
-                                        </div>
-                                        <div class="comments__subset">
-                                            <div id="comment-6">
-                                                <div class="comments__box">
-                                                    <div class="comments__inner">
-                                                        <div class="comments__header">
-                                                            <div class="comments__row">
-                                                                <div class="d-flex flex-grow-1">
-                                                                    <div class="comments__avatar">
-                                                                        <img src="img/profile.jpg"
-                                                                             class="comments__img">
-                                                                    </div>
-                                                                    <div class="comments__details">
-                                                                        <h5 class="comments__author"><span
-                                                                                class="comments__author-name">محمد نیکو نیکو نیکو</span>
-                                                                        </h5>
-                                                                        <span class="comments_date"> 523 روز پیش </span>
-                                                                    </div>
-                                                                </div>
-                                                                <a href="#comments"
-                                                                   class="btn btn--blue btn--shadow-blue btn--comments-reply">ارسال
-                                                                    پاسخ</a>
-                                                            </div>
-                                                        </div>
-                                                        <p class="comments__body">
-                                                            لورم ایپسوم
-                                                            متـــــــــــــــــــــــــــــــــــــــــــــــــــن
-                                                            ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
-                                                            طراحان
-                                                            گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و
-                                                            سطرآنچنان
-                                                            که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای
-                                                            متنوع
-                                                            با هدف بهبود ابزارهای کاربردی می باشد.
-
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @foreach($post->comments as $comment)
+                        @include('comments.comment', ['comment' => $comment])
+                    @endforeach
                 </div>
             </div>
         </div>
     </main>
+
+    <x-slot name="scripts">
+        <script>
+            function setReplyValue(id){
+                document.getElementById('reply-input').value = id
+            }
+        </script>
+    </x-slot>
+
 </x-layout>
